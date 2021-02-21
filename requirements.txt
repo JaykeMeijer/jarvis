@@ -1,0 +1,8 @@
+espeakng==1.0.2
+py-espeak-ng==0.1.8
+PyAudio==0.2.11
+redis==3.5.3
+SpeechRecognition==3.8.1
+requests==2.25.1
+num2words==0.5.10
+pocketsphinx==0.1.15

@@ -1,0 +1,214 @@
+{
+    "keyword": {
+        "triggers": ["jarvis", "mirror"],
+        "responses": [
+            "yes boss, what's up?",
+            "yeah?",
+            "go for jarvis",
+            "I'm listening",
+            "Talk to me boss",
+            "That's me, what's up",
+            "I'm here"
+        ]
+    },
+    "stop": {
+        "triggers": ["stop", "never mind", "forget it"],
+        "responses": [
+            "okay we're done",
+            "sure, I'll stop"
+        ]
+    },
+    "repeat": [
+        "Sorry, I didn't get that",
+        "Please say that again",
+        "Can you repeat that",
+        "What was that?",
+        "Please repeat that",
+        "I didn't hear you"
+    ],
+    "tree": [
+        {
+            "trigger": ["what", "time", "how", "late"],
+            "actions": [
+                {
+                    "type": "saytime",
+                    "value": null
+                }
+            ]
+        },
+        {
+            "trigger": ["what", "day", "date"],
+            "actions": [
+                {
+                    "type": "saydate",
+                    "value": null
+                }
+            ]
+        },
+        {
+            "trigger": ["what", "weather"],
+            "actions": [
+                {
+                    "type": "sayweather",
+                    "value": null
+                }
+            ]
+        },
+        {
+            "trigger": ["action", "two"],
+            "actions": [
+                {
+                    "type": "say",
+                    "value": "Okay action two, what now?"
+                }
+            ],
+            "next": [
+                {
+                    "trigger": ["dot", ".", "point", "one"],
+                    "actions": [
+                        {
+                            "type": "say",
+                            "value": "Doing two dot one"
+                        }
+                    ]
+                },
+                {
+                    "trigger": ["dot", ".", "point", "two"],
+                    "actions": [
+                        {
+                            "type": "say",
+                            "value": "Doing two dot two"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "trigger": ["light", "lights", "rainbow"],
+            "actions": [
+                {
+                    "type": "say",
+                    "value": "Okay, switching to rainbow"
+                },
+                {
+                    "type": "apicall",
+                    "value": {
+                        "host": "mountainlight",
+                        "method": "put",
+                        "command": "state",
+                        "body": {
+                            "color_mode": 2
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "trigger": ["light", "lights", "static"],
+            "actions": [
+                {
+                    "type": "say",
+                    "value": "Okay, switching to static"
+                },
+                {
+                    "type": "apicall",
+                    "value": {
+                        "host": "mountainlight",
+                        "method": "put",
+                        "command": "state",
+                        "body": {
+                            "color_mode": 0
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "trigger": ["suck", "shit"],
+            "actions": [
+                {
+                    "type": "sayrandom",
+                    "value":[
+                        "Well you're not great either",
+                        "Oh just shut up",
+                        "Fuck you",
+                        "Piss off"
+                    ]
+                }
+            ]
+        },
+        {
+            "trigger": ["are", "great", "awesome"],
+            "actions": [
+                {
+                    "type": "sayrandom",
+                    "value":[
+                        "Oh stop it",
+                        "Thanks boss",
+                        "Right back at you",
+                        "That's right"
+                    ]
+                }
+            ]
+        },
+        {
+            "trigger": ["something", "funny", "joke"],
+            "actions": [
+                {
+                    "type": "sayrandom",
+                    "value": [
+                        "Here it comes",
+                        "Are you ready for it?",
+                        "Well okay",
+                        "Alright, here it goes"
+                    ]
+                },
+                {
+                    "type": "sleep",
+                    "value": 2
+                },
+                {
+                    "type": "sayjoke",
+                    "value": null
+                }
+            ]
+        },
+        {
+            "trigger": ["nerd", "I'm"],
+            "actions": [
+                {
+                    "type": "sayrandom",
+                    "value": [
+                        "In that case, here is a joke for you",
+                        "Ooh I know a good programming joke",
+                        "Me too! Here, listen",
+                        "Yes you are. Here, listen to this"
+                    ]
+                },
+                {
+                    "type": "sleep",
+                    "value": 2
+                },
+                {
+                    "type": "nerdjoke",
+                    "value": null
+                }
+            ]
+        },
+        {
+            "trigger": ["sing", "song"],
+            "actions": [
+                {
+                    "type": "sayrandom",
+                    "value": [
+                        "No way",
+                        "You would like that, wouldn't you?",
+                        "I'd rather not",
+                        "YOU sing a song",
+                        "No thank you"
+                    ]
+                }
+            ]
+        }
+    ]
+}
