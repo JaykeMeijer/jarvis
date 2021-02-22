@@ -1,6 +1,7 @@
 import speech_recognition as sr
 from speechtree import SpeechTree
 from time import sleep, time
+from redis_funcs import say
 
 
 r = sr.Recognizer()
@@ -37,6 +38,8 @@ with m as source:
     r.adjust_for_ambient_noise(source)
 
 last_adjust = time()
+
+say("Jarvis is online")
 
 while True:
     with m as source:

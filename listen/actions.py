@@ -2,6 +2,7 @@ from redis_funcs import say
 import random
 import requests
 import datetime
+import os
 from time import sleep
 
 
@@ -11,7 +12,10 @@ ordinal = lambda n: "%d%s" % (n,"tsnrhtdd"[(n//10%10!=1)*(n%10<4)*n%10::4])
 hosts = {
     "mountainlight": "http://192.168.178.29/api/",
     "joke": "https://official-joke-api.appspot.com/jokes",
-    "weather": "http://api.openweathermap.org/data/2.5/weather?id=2759798&APPID=15e79497893ad73998faa51a71efe8c1&units=metric"
+    "weather": "http://api.openweathermap.org/data/2.5/weather?"
+        "id=2759798&"
+        f"APPID={os.environ.get('OPENWEATHER_APPID')}"
+        "&units=metric"
 }
 
 

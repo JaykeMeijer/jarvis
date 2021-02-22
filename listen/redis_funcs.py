@@ -1,7 +1,12 @@
 import redis
+import os
 
 
-rd = redis.Redis(host='localhost', port=6379, db=0)
+r = redis.Redis(
+    host=os.environ.get('REDIS_HOST'),
+    port=os.environ.get('REDIS_PORT'),
+    db=0
+)
 
 
 def say(text):
@@ -10,4 +15,4 @@ def say(text):
 
     :param text:    The text to say
     """
-    rd.publish('say', text)
+    r.publish(os.environ.get('REDIS_TOPIC'), text)

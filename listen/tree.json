@@ -31,7 +31,7 @@
             "trigger": ["what", "time", "how", "late"],
             "actions": [
                 {
-                    "type": "saytime",
+                    "type": "saytimenice",
                     "value": null
                 }
             ]
