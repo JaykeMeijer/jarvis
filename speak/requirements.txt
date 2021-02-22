@@ -1,0 +1,2 @@
+espeakng==1.0.2
+redis==3.5.3
