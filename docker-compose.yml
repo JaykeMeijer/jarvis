@@ -22,18 +22,14 @@ services:
     build: ./listen
     depends_on:
       - redis
+      - say
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - REDIS_TOPIC=say
-      - OPENWEATHER_APPID=<>
-      # Required for audio to work
-      - PULSE_SERVER=unix:${XDG_RUNTIME_DIR}/pulse/native
+      - OPENWEATHER_APPID=15e79497893ad73998faa51a71efe8c1
     volumes:
       # Use hostmachine timezone
       - /etc/timezone:/etc/timezone:ro
-      # Required for audio to work
-      - ${XDG_RUNTIME_DIR}/pulse/native:${XDG_RUNTIME_DIR}/pulse/native
-      - ~/.config/pulse/cookie:/root/.config/pulse/cookie
     devices:
       - "/dev/snd:/dev/snd"
