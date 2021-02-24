@@ -28,6 +28,7 @@ def handle(recognizer, audio):
     except sr.UnknownValueError as e:
         if tree.active:
             tree.please_repeat()
+            return True
     except sr.RequestError as e:
         print("Sphinx error; {0}".format(e))
 
@@ -50,7 +51,7 @@ while True:
     require_pause = handle(r, audio)
 
     if require_pause:
-        sleep(5)
+        sleep(3)
     else:
         sleep(0.1)
 

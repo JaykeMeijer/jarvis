@@ -18,6 +18,8 @@ services:
       # Required for audio to work
       - ${XDG_RUNTIME_DIR}/pulse/native:${XDG_RUNTIME_DIR}/pulse/native
       - ~/.config/pulse/cookie:/root/.config/pulse/cookie
+    devices:
+      - "/dev/snd:/dev/snd"
   listen:
     build: ./listen
     depends_on:
