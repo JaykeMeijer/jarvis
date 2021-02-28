@@ -2,6 +2,7 @@ import speech_recognition as sr
 from speechtree import SpeechTree
 from time import sleep, time
 from redis_funcs import say
+import os
 
 
 r = sr.Recognizer()
@@ -19,7 +20,8 @@ def handle(recognizer, audio):
     :param recognizer:  Recognizer object to use
     :param audio:       Audio received
     """
-    print("Processing...")
+    if os.environ.get("DEBUG", False):
+        print("Processing...")
     try:
         text = recognizer.recognize_google(audio).lower()
         print("I got:" + text)

@@ -29,7 +29,8 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - REDIS_TOPIC=say
-      - OPENWEATHER_APPID=<>
+      - OPENWEATHER_APPID=15e79497893ad73998faa51a71efe8c1
+      - PYTHONUNBUFFERED=1
     volumes:
       # Use hostmachine timezone
       - /etc/timezone:/etc/timezone:ro

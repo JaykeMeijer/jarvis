@@ -9,17 +9,6 @@ from phonetics import awis, cwis
 
 
 class SpeechTree:
-    # available_actions = {
-    #     'say': Actions.say,
-    #     'sayrandom': Actions.sayrandom,
-    #     'apicall': Actions.apicall,
-    #     'saytime': Actions.saytimenice,
-    #     'saydate': Actions.saydate,
-    #     'sayjoke': Actions.sayjoke,
-    #     'nerdjoke': Actions.nerdjoke,
-    #     'sleep': Actions.sleep
-    # }
-
     # Currently we threshold on number of matches. Perhaps add a fraction?
     score_threshold = 1
 

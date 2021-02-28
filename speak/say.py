@@ -33,6 +33,7 @@ while True:
             text = msg['data'].decode('utf8')
             print(text)
             speaker.say(text)
+            speaker.wait()
         else:
             print("unknown msg:", msg)
 

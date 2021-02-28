@@ -1,6 +1,6 @@
 {
     "keyword": {
-        "triggers": ["jarvis", "mirror"],
+        "triggers": ["jarvis", "service", "davis", "mirror"],
         "responses": [
             "yes boss, what's up?",
             "yeah?",
