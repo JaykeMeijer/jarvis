@@ -1,9 +1,10 @@
-version: '3.8'
+version: '3.7'
 services:
   redis:
     image: redis
     ports:
       - "6379:6379"
+    restart: always
   say:
     build: ./speak
     depends_on:
@@ -20,6 +21,7 @@ services:
       - ~/.config/pulse/cookie:/root/.config/pulse/cookie
     devices:
       - "/dev/snd:/dev/snd"
+    restart: always
   listen:
     build: ./listen
     depends_on:
@@ -29,10 +31,10 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - REDIS_TOPIC=say
-      - OPENWEATHER_APPID=15e79497893ad73998faa51a71efe8c1
+      - OPENWEATHER_APPID=<>
+      - TZ=Europe/Amsterdam
       - PYTHONUNBUFFERED=1
-    volumes:
-      # Use hostmachine timezone
-      - /etc/timezone:/etc/timezone:ro
     devices:
       - "/dev/snd:/dev/snd"
+    restart: always
+
