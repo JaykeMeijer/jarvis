@@ -1,21 +1,43 @@
 {
     "keyword": {
-        "triggers": ["jarvis", "service", "davis", "mirror"],
-        "responses": [
-            "yes boss, what's up?",
-            "yeah?",
-            "go for jarvis",
-            "I'm listening",
-            "Talk to me boss",
-            "That's me, what's up",
-            "I'm here"
-        ]
+        "triggers": ["jarvis", "service", "davis", "thurles", "mirror"],
+        "responses": {
+            "any": [
+                "yes boss, what's up?",
+                "yeah?",
+                "go for jarvis",
+                "I'm listening",
+                "Talk to me boss",
+                "That's me, what's up",
+                "I'm here"
+            ],
+            "morning": [
+                "Good morning boss, what's up?",
+                "Top of the morning to you",
+                "Good day boss"
+            ],
+            "afternoon": [
+                "Good afternoon boss, what's up?",
+                "Good afternoon"
+            ],
+            "evening": [
+                "Good evening boss, what's up?",
+                "Good evening, what's up?"
+            ],
+            "night": [
+                "Really, at this time? Okay, go ahead",
+                "What do you want",
+                "Up late huh? What's up?",
+                "Shouldn't you be sleeping now? Okay, tell me"
+            ]
+        }
     },
     "stop": {
-        "triggers": ["stop", "never mind", "forget it"],
+        "triggers": ["stop", "never mind", "forget it", "shut up"],
         "responses": [
             "okay we're done",
-            "sure, I'll stop"
+            "sure, I'll stop",
+            "okay whatever"
         ]
     },
     "repeat": [

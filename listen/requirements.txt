@@ -4,3 +4,5 @@ SpeechRecognition==3.8.1
 requests==2.25.1
 num2words==0.5.10
 Fuzzy==1.2.2
+google-api-python-client==1.12.8
+oauth2client==4.1.3

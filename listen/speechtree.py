@@ -5,6 +5,8 @@ from redis_funcs import say
 from actions import Actions
 import json
 import random
+import datetime
+from time import time
 from phonetics import awis, cwis
 
 
@@ -22,6 +24,7 @@ class SpeechTree:
         self.stop = config['stop']
 
         self.current = None
+        self.last = time()
 
     @property
     def active(self):
@@ -30,11 +33,16 @@ class SpeechTree:
     def activate(self):
         if self.current is None:
             self.current = self.action_tree
+            self.last = time()
         else:
             print("Already active!")
 
-    def deactivate(self):
+    def deactivate(self, tellme=False):
+        if tellme:
+            say("deactivating")
+
         self.current = None
+        self.last = None
 
     def set_active(self, action):
         self.current = action
@@ -48,7 +56,6 @@ class SpeechTree:
                 scores = []
                 for action in self.current:
                     score = cwis(action['trigger'], text)
-                    #print(action['trigger'], score)
                     if score >= self.score_threshold:
                         scores.append((score, action))
 
@@ -58,9 +65,22 @@ class SpeechTree:
                     self.handle_action(best_action)
                 else:
                     say("I can't help you with that")
+
+                self.last = time()
         else:
             if awis(self.keyword['triggers'], text):
-                say(random.choice(self.keyword['responses']))
+                responses = self.keyword['responses']
+                options = responses['any']
+                hr = datetime.datetime.now().hour
+                if 6 <= hr <= 11:
+                    options += responses['morning']
+                elif 12 <= hr <= 17:
+                    options += responses['afternoon']
+                elif 18 <= hr <= 23:
+                    options += responses['evening']
+                elif 0 <= hr <= 4:
+                    options += responses['night']
+                say(random.choice(options))
                 self.activate()
 
     def handle_action(self,action):

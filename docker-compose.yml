@@ -34,6 +34,7 @@ services:
       - OPENWEATHER_APPID=<>
       - TZ=Europe/Amsterdam
       - PYTHONUNBUFFERED=1
+      - GOOGLE_APPLICATION_CREDENTIALS=gcloud_key.json
     devices:
       - "/dev/snd:/dev/snd"
     restart: always
