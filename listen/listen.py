@@ -96,7 +96,7 @@ def main():
         if time() - last_adjust > READJUST_TIMEOUT:
             print("->Readjusting Audio")
             with microphone as source:
-                readjust()
+                readjust(recognizer, microphone)
 
         if DEBUG:
             print(recognizer.energy_threshold)
