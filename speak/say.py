@@ -32,8 +32,10 @@ while True:
         if msg['type'] == 'message':
             text = msg['data'].decode('utf8')
             print(text)
+            r.publish("speaking", "1")
             speaker.say(text)
             speaker.wait()
+            r.publish("speaking", "0")
         else:
             print("unknown msg:", msg)
 

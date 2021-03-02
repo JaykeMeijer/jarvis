@@ -1,6 +1,14 @@
 {
     "keyword": {
-        "triggers": ["jarvis", "service", "davis", "thurles", "mirror"],
+        "triggers": [
+            "jarvis",
+            "service",
+            "davis",
+            "thurles",
+            "jealous",
+            "nervous",
+            "mirror"
+        ],
         "responses": {
             "any": [
                 "yes boss, what's up?",
@@ -186,10 +194,6 @@
                     ]
                 },
                 {
-                    "type": "sleep",
-                    "value": 2
-                },
-                {
                     "type": "sayjoke",
                     "value": null
                 }
@@ -206,10 +210,6 @@
                         "Me too! Here, listen",
                         "Yes you are. Here, listen to this"
                     ]
-                },
-                {
-                    "type": "sleep",
-                    "value": 2
                 },
                 {
                     "type": "nerdjoke",

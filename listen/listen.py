@@ -1,78 +1,106 @@
 import speech_recognition as sr
 from speechtree import SpeechTree
-from time import sleep, time
+from time import time
 from redis_funcs import say
 import os
 
 
-r = sr.Recognizer()
-r.pause_threshold = 0.5
-m = sr.Microphone()
-speech_timeout = 30
+last_adjust = time()
 
 
-tree = SpeechTree("tree.json")
+DEBUG = os.environ.get("DEBUG", "false").lower() == "true"
+USE_GLOUD = os.environ.get("USE_GCLOUD", "false").lower() == "true"
+ENERGY_THRESHOLD_MULTIPLIER = int(
+    os.environ.get("ENERGY_THRESHOLD_MULTIPLIER", 2)
+)
+SPEECH_TIMEOUT = 30
+READJUST_TIMEOUT = 600
 
 
-def handle(recognizer, audio):
+def print_status(recognizer):
+    print("Running with following config:")
+    print("SR settings:")
+    print(f"\tPause threshold: {recognizer.pause_threshold}")
+    print(f"\tEnergy threshold multiplier: {ENERGY_THRESHOLD_MULTIPLIER}")
+    print(f"\tUse GCloud: {USE_GLOUD}")
+    print("System settings:")
+    print(f"\tSpeech timeout: {SPEECH_TIMEOUT}")
+    print(f"\tDebug: {DEBUG}")
+
+
+def handle(recognizer, audio, tree):
     """
     Handle received audio
 
     :param recognizer:  Recognizer object to use
     :param audio:       Audio received
+    :param tree:        The conversation tree to use
     """
-    if os.environ.get("DEBUG", False):
+    if DEBUG:
         print("Processing...")
+
     try:
-        if tree.active:
+        if USE_GLOUD and tree.active:
             text = recognizer.recognize_google_cloud(audio).lower()
         else:
             text = recognizer.recognize_google(audio).lower()
         print("I got:" + text)
         tree.process_text(text)
-        return True
     except sr.UnknownValueError as e:
         if tree.active:
             tree.please_repeat()
-            return True
     except sr.RequestError as e:
         print("Sphinx error; {0}".format(e))
 
-    return False
+
+def readjust(recognizer, microphone):
+    global last_adjust
+    with microphone as source:
+        recognizer.adjust_for_ambient_noise(source)
+    recognizer.energy_threshold *= ENERGY_THRESHOLD_MULTIPLIER
+    last_adjust = time()
 
 
-with m as source:
-    r.adjust_for_ambient_noise(source)
+def main():
+    recognizer = sr.Recognizer()
+    recognizer.pause_threshold = 0.5
+    recognizer.dynamic_energy_threshold = False
+    microphone = sr.Microphone()
 
-last_adjust = time()
+    print_status(recognizer)
 
-say("Jarvis is online")
+    readjust(recognizer, microphone)
+    tree = SpeechTree("tree.json")
 
-while True:
-    with m as source:
-        try:
-            audio = r.listen(
-                source,
-                phrase_time_limit=5,
-                timeout=10
-            )
-            require_pause = handle(r, audio)
-        except sr.WaitTimeoutError:
-            # Timeout reached, run loop to check for 
-            require_pause = False
+    # Ready to go!
+    say("Jarvis is online")
 
-    if tree.active and (time() - tree.last) > speech_timeout:
-        # Havent had a command in a while now, cancel active state
-        tree.deactivate(True)
-        require_pause = True
+    while True:
+        with microphone as source:
+            try:
+                audio = recognizer.listen(
+                    source,
+                    phrase_time_limit=5,
+                    timeout=3
+                )
+                handle(recognizer, audio, tree)
+            except sr.WaitTimeoutError:
+                # Timeout reached, run loop to check for
+                if DEBUG:
+                    print("timeout")
 
-    if require_pause:
-        sleep(3)
-    else:
-        sleep(0.1)
+        if tree.active and (time() - tree.last) > SPEECH_TIMEOUT:
+            # Havent had a command in a while now, cancel active state
+            tree.deactivate(True)
 
-    if time() - last_adjust > 600:
-        print("->Readjusting Audio")
-        with m as source:
-            r.adjust_for_ambient_noise(source)
-        last_adjust = time()
+        if time() - last_adjust > READJUST_TIMEOUT:
+            print("->Readjusting Audio")
+            with microphone as source:
+                readjust()
+
+        if DEBUG:
+            print(recognizer.energy_threshold)
+
+
+if __name__ == "__main__":
+    main()

@@ -35,6 +35,8 @@ services:
       - TZ=Europe/Amsterdam
       - PYTHONUNBUFFERED=1
       - GOOGLE_APPLICATION_CREDENTIALS=gcloud_key.json
+      - DEBUG=false
+      - USE_GCLOUD=false
     devices:
       - "/dev/snd:/dev/snd"
     restart: always
