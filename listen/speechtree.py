@@ -70,16 +70,17 @@ class SpeechTree:
         else:
             if awis(self.keyword['triggers'], text):
                 responses = self.keyword['responses']
-                options = responses['any']
                 hr = datetime.datetime.now().hour
                 if 6 <= hr <= 11:
-                    options += responses['morning']
+                    options = responses['any'] + responses['morning']
                 elif 12 <= hr <= 17:
-                    options += responses['afternoon']
+                    options = responses['any'] + responses['afternoon']
                 elif 18 <= hr <= 23:
-                    options += responses['evening']
+                    options = responses['any'] + responses['evening']
                 elif 0 <= hr <= 4:
-                    options += responses['night']
+                    options = responses['any'] + responses['night']
+                else:
+                    options = responses['any']
                 say(random.choice(options))
                 self.activate()
 
