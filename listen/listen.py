@@ -10,7 +10,7 @@ last_adjust = time()
 
 DEBUG = os.environ.get("DEBUG", "false").lower() == "true"
 USE_GLOUD = os.environ.get("USE_GCLOUD", "false").lower() == "true"
-ENERGY_THRESHOLD_MULTIPLIER = int(
+ENERGY_THRESHOLD_MULTIPLIER = float(
     os.environ.get("ENERGY_THRESHOLD_MULTIPLIER", 2)
 )
 SPEECH_TIMEOUT = 30

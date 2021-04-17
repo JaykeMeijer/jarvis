@@ -78,6 +78,15 @@
         {
             "trigger": ["what", "weather"],
             "actions": [
+		{
+		    "type": "command",
+		    "value": [
+	                "mirror-commands",
+			{
+			    "command": "show_weather"
+		        }
+	            ]
+		},
                 {
                     "type": "sayweather",
                     "value": null

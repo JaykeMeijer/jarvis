@@ -31,12 +31,13 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - REDIS_TOPIC=say
-      - OPENWEATHER_APPID=<>
+      - OPENWEATHER_APPID=15e79497893ad73998faa51a71efe8c1
       - TZ=Europe/Amsterdam
       - PYTHONUNBUFFERED=1
       - GOOGLE_APPLICATION_CREDENTIALS=gcloud_key.json
       - DEBUG=false
       - USE_GCLOUD=false
+      - ENERGY_THRESHOLD_MULTIPLIER=1.5
     devices:
       - "/dev/snd:/dev/snd"
     restart: always

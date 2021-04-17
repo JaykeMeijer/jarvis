@@ -1,8 +1,9 @@
-from redis_funcs import say
+from redis_funcs import say, command as bus_command
 import random
 import requests
 import datetime
 import os
+import json
 from time import sleep
 
 
@@ -126,3 +127,8 @@ class Actions:
     @staticmethod
     def sleep(tree, interval):
         sleep(interval)
+
+    @staticmethod
+    def command(tree, parameters):
+        bus_command(parameters[0], json.dumps(parameters[1]))
+

@@ -30,3 +30,7 @@ def say(text):
                 break
     else:
         print("ERROR TIMED OUT ON SPEECH WAIT")
+
+def command(topic, command):
+    r.publish(topic, command)
+
