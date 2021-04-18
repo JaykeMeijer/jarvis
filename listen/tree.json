@@ -240,6 +240,50 @@
                     ]
                 }
             ]
+        },
+        {
+            "trigger": ["show", "news"],
+            "actions": [
+		{
+		    "type": "command",
+		    "value": [
+	                "mirror-commands",
+			{
+			    "command": "show_news"
+		        }
+	            ]
+		},
+                {
+                    "type": "sayrandom",
+                    "value": [
+			"Okay, here is the news",
+			"Okay, here you go",
+			"Sure, here you go",
+			"No problem, here it is"
+	            ]
+                }
+            ]
+        },
+        {
+            "trigger": ["hide"],
+            "actions": [
+		{
+		    "type": "command",
+		    "value": [
+	                "mirror-commands",
+			{
+			    "command": "hide_all"
+		        }
+	            ]
+		},
+                {
+                    "type": "sayrandom",
+                    "value": [
+			"Okay, hiding it",
+			"Okay, done"
+	            ]
+                }
+            ]
         }
     ]
 }
