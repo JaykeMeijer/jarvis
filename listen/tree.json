@@ -284,6 +284,20 @@
 	            ]
                 }
             ]
+        },
+        {
+            "trigger": ["mirror", "wall", "fairest"],
+            "actions": [
+		{
+		    "type": "command",
+		    "value": [
+	                "mirror-commands",
+			{
+			    "command": "show_snowwhite"
+		        }
+	            ]
+		}
+            ]
         }
     ]
 }
